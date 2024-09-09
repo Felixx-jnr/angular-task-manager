@@ -4,11 +4,18 @@ import { CommonModule } from '@angular/common';
 import { TaskService } from '../../services/task.service';
 import { TaskItemComponent } from '../task-item/task-item.component';
 import { HttpClientModule } from '@angular/common/http';
+import { AddTaskComponent } from '../add-task/add-task.component';
 
 @Component({
   selector: 'app-tasks',
   standalone: true,
-  imports: [CommonModule, TaskItemComponent, HttpClientModule],
+  imports: [
+    CommonModule,
+    TaskItemComponent,
+    HttpClientModule,
+    AddTaskComponent,
+    AddTaskComponent,
+  ],
   templateUrl: './tasks.component.html',
   styleUrl: './tasks.component.css',
   providers: [TaskService],
@@ -33,5 +40,9 @@ export class TasksComponent {
   toggleReminder(task: Task) {
     task.reminder = !task.reminder;
     this.taskService.updateTaskReminder(task).subscribe();
+  }
+
+  addTask(task: Task) {
+    this.taskService.addTask(task).subscribe((task) => this.tasks.push(task));
   }
 }
